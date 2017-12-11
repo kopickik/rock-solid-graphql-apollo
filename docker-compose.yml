@@ -1,0 +1,23 @@
+version: “3”
+services:
+  api:
+    build: ./api
+    image: crypto-dca-api:latest
+    container_name: crypto-dca-api
+    env_file: config/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 8088:8088
+  db:
+    build: ./db
+    image: crypto-dca-db:latest
+    container_name: crypto-dca-db
+    env_file: config/.env
+    volumes:
+      - crypto-dca-db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  crypto-dca-db:
+    driver: local
